@@ -4,7 +4,7 @@
   "description": "first auth",
   "main": "app.js",
   "scripts": {
-    "start": "./node_modules/.bin/babel-node app.js",
+    "start": "nodemon app.js --exec ./node_modules/.bin/babel-node",
     "dev": "nodemon app.js --exec ./node_modules/.bin/babel-node",
     "watch-node": "nodemon app.js --exec ./node_modules/.bin/babel-node"
   },
@@ -55,7 +55,15 @@
     "twilio": "^3.39.4",
     "url": "^0.11.0",
     "web-push": "^3.4.2",
-    "yamljs": "^0.3.0"
+    "yamljs": "^0.3.0",
+    "@babel/preset-es2016": "^7.0.0-beta.53",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "nodemon": "^1.19.1",
+    "tracer": "^0.9.9"
   },
   "devDependencies": {
     "@babel/preset-es2016": "^7.0.0-beta.53",
