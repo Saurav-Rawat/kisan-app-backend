@@ -1,0 +1,278 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: Gladiatorial
+  description: Public API
+  contact:
+    email: mayankyadav891999@gmail.com
+  # license:
+  #   name: Apache 2.0
+  #   url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: localhost:5000
+basePath: /
+schemes:
+  #  - https
+  - http
+tags:
+  - name: auth
+    description: all functions related user accounts
+
+paths:
+  /login:
+    post:
+      tags:
+        - "auth"
+      summary: login user
+      operationId: loginUser
+      consumes:
+        - application/json
+
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              mobile:
+                type: string
+              otp:
+                type: string
+
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  /register:
+    post:
+      tags:
+        - "auth"
+      summary: register new user
+      operationId: registerUser
+      consumes:
+        - application/json
+
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              mobile:
+                type: string
+              otp:
+                type: string
+              email:
+                type: string
+              mode:
+                type: string
+                enum:
+                  - Facebook
+                  - Gmail
+              userType:
+                type: string
+                default: "user"
+                enum:
+                  - admin
+                  - user
+              name:
+                type: string
+              allowNotification:
+                type: boolean
+
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  /user:
+    post:
+      tags:
+        - "auth"
+      summary: add new user
+      operationId: adduser
+      consumes:
+        - application/json
+
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              mode:
+                type: string
+                enum:
+                  - Facebook
+                  - Gmail
+              userType:
+                type: string
+                default: "user"
+              mobile:
+                type: string
+              name:
+                type: string
+              allowNotification:
+                type: boolean
+              photo:
+                type: string
+      responses:
+        "200":
+          description: successful operation
+          schema:
+            $ref: "#/definitions/ApiResponse"
+    get:
+      tags:
+        - "auth"
+      summary: Get all users details
+      operationId: getAllUsers
+      consumes:
+        - application/json
+
+      produces:
+        - application/json
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ApiResponse'
+  /user/{_id}:
+    get:
+      tags:
+        - "auth"
+      summary: Get user details
+      operationId: getUser
+      consumes:
+        - application/json
+
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: _id
+          description: _id  of the user
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ApiResponse'
+    put:
+      tags:
+        - "auth"
+      summary: update user
+      operationId: userUpdate
+      consumes:
+        - application/json
+      produces:
+        - application/json
+
+
+      parameters:
+        - in: path
+          name: _id
+          description: _id  of the user
+          required: true
+          type: string
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              mode:
+                type: string
+                enum:
+                  - Facebook
+                  - Gmail
+              userType:
+                type: string
+                default: "user"
+              name:
+                type: string
+              mobile:
+                type: string
+              allowNotification:
+                type: boolean
+              photo:
+                type: string
+
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: successful operation
+            schema:
+              $ref: "#/definitions/ApiResponse"
+    delete:
+      tags:
+        - "auth"
+      summary: delete user
+      operationId:  deleteUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: _id
+          description: _id  of the user
+          required: true
+          type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ApiResponse'
+
+servers:
+  - url: https://{customerId}.saas-app.com:{port}/v2
+    variables:
+      customerId:
+        default: demo
+        description: Customer ID assigned by the service provider
+      port:
+        enum:
+          - '443'
+          - '8443'
+        default: '443'
+
+
+securityDefinitions:
+  bearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
+
+definitions:
+  ApiResponse:
+    type: object
+    properties:
+      type:
+        type: string
+      success:
+        type: boolean
+      error:
+        type: boolean
+      message:
+        type: string
+      data:
+        type: object
