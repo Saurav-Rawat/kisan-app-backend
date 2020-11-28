@@ -4,7 +4,7 @@
   "description": "first auth",
   "main": "app.js",
   "scripts": {
-    "start": "./node_modules/.bin/babel-node app.js",
+    "start": "npm ci ./node_modules/.bin/babel-node app.js",
     "dev": "nodemon app.js --exec ./node_modules/.bin/babel-node",
     "watch-node": "nodemon app.js --exec ./node_modules/.bin/babel-node"
   },
