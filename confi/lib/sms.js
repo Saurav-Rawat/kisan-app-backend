@@ -1,7 +1,7 @@
 const twilio = require("twilio");
+const accountSid = "ACdc570419de374455d6bfd24b9bd564ec";
+const authToken = "61e5f1610a677e5eb6f5aef51af34751";
 export const sendSms = (data, callback) => {
-  const accountSid = "ACdc570419de374455d6bfd24b9bd564ec";
-  const authToken = "61e5f1610a677e5eb6f5aef51af34751";
   //   const appHash = process.env.OTP_APP_HASH;
   const client = twilio(accountSid, authToken);
   const { message, number } = data;
@@ -20,9 +20,6 @@ export const sendSms = (data, callback) => {
 };
 
 export const getAllSms = (callback) => {
-  const accountSid = process.env.TWILIO_ACCOUNT_SID;
-  const authToken = process.env.TWILIO_AUTH_TOKEN;
-  const appHash = process.env.OTP_APP_HASH;
   const client = twilio(accountSid, authToken);
   client.messages
     .list()
